@@ -1,0 +1,151 @@
+:root {
+  --dark-blue: hsl(209, 23%, 22%);
+  --very-dark-blue: hsl(207, 26%, 17%);
+  --very-dark-blue-light: hsl(200, 15%, 8%);
+  --dark-gray: hsl(0, 0%, 52%);
+  --very-light-gray: hsl(0, 0%, 98%);
+  --white: hsl(0, 0%, 100%);
+}
+
+* {
+  box-sizing: border-box;
+  font-size: 14px;
+  font-family: "Nunito Sans", sans-serif;
+}
+
+html,
+body {
+  margin: 0;
+}
+
+header {
+  height: 50px;
+}
+header > div {
+  width: 90%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 1em;
+  margin: auto;
+}
+
+input {
+  width: auto;
+  height: 40px;
+  border: none;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  outline: none;
+}
+
+.input {
+  position: relative;
+}
+
+.select {
+  width: auto;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1em;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.select > span {
+  margin-right: 1em;
+}
+.select > svg {
+  width: 24px;
+  height: 24px;
+}
+
+.dropdown {
+  width: 157px;
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  margin-top: 0.3em;
+  border-radius: 5px;
+  line-height: 30px;
+}
+.dropdown > span {
+  padding-left: 1em;
+  cursor: pointer;
+}
+
+.main-title {
+  font-size: 1.3em;
+}
+
+.container-dark-mode {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+.container-filters {
+  width: 90%;
+  display: flex;
+  justify-content: space-between;
+  margin: auto;
+  padding: 2em 1em;
+}
+.container-main {
+  width: 93%;
+  display: grid;
+  grid-template-columns: repeat(4, 25%);
+  grid-template-rows: auto;
+  grid-gap: 4em 0;
+  margin: auto;
+  justify-items: center;
+}
+
+.card {
+  border-radius: 5px;
+}
+.card > .flag > img {
+  width: 260px;
+  height: 172.8px;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+}
+.card:hover {
+  box-shadow: 3px 1px 14px 2px var(--very-dark-blue-light);
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  padding: 1em 1em 3em 1em;
+}
+.content-details {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  line-height: 25px;
+}
+
+.dark-mode {
+  margin-left: 0.5em;
+}
+
+.input {
+  display: flex;
+  align-items: center;
+}
+.input > div:first-of-type {
+  height: 40px;
+  display: grid;
+  place-items: center;
+  padding: 0 1em;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+
+.disabled {
+  display: none;
+}
+
+/*# sourceMappingURL=style-homepage.css.map */
