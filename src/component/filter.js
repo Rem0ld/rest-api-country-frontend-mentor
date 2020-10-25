@@ -1,18 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 
 import { BsArrowDownShort } from "react-icons/bs";
 import { IoIosClose } from "react-icons/io";
 
 function Filter(props) {
-  // const [region, setRegion] = useState([]);
-
-  // useEffect(() => {
-  //   setRegion(props.region);
-  // }, []);
-
   const handleClickFilter = () => {
     document.getElementById("dropdown").classList.toggle("disabled");
   };
+
   return (
     <div>
       <div className="select elements" onClick={handleClickFilter}>
