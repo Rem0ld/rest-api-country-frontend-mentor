@@ -14,6 +14,18 @@ function Main(props) {
     return () => (mounted = false);
   }, [props.countries]);
 
+  useEffect(() => {
+    if (!props.filter) {
+      setCountries(props.countries);
+      return;
+    }
+    setCountries(
+      props.countries.filter((el) => {
+        return el.region === props.filter;
+      })
+    );
+  }, [props.filter]);
+
   return (
     <div className="container-main">
       {countries.map((country) => {

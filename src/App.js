@@ -28,16 +28,22 @@ function App() {
 
   useEffect(() => {
     let mounted = true;
-    let storedCountries = sessionStorage.getItem("countries");
 
     if (countries.length > 0) {
       return;
     }
+
+    let storedCountries = sessionStorage.getItem("countries");
+
     if (storedCountries) {
+      console.log("Got data from sessionStorage");
+
       setCountries(JSON.parse(storedCountries));
     } else {
       fetchAllCountries().then((data) => {
         if (mounted) {
+          console.log("Got data from fetch API");
+
           setCountries(data);
           sessionStorage.setItem("countries", JSON.stringify(data));
         }
@@ -68,14 +74,9 @@ function App() {
     document.getElementById("dropdown").classList.toggle("disabled");
   };
 
-  useEffect(() => {
-    console.log(filter);
-    setCountries(
-      [...countries].filter((el) => {
-        return el.region === filter;
-      })
-    );
-  }, [filter]);
+  const resetFilter = () => {
+    setFilter("");
+  };
 
   return (
     <ThemeProvider theme={theme === "light" ? lightTheme : darkTheme}>
@@ -84,9 +85,21 @@ function App() {
         <Header theme={theme} toggle={toggleTheme} />
         <div className="container-filters">
           <SearchBar value={input} handleInput={handleInput} />
-          <Filter filter={filter} handleClickChoice={handleClickChoice} />
+          <Filter
+            filter={filter}
+            handleClickChoice={handleClickChoice}
+            resetFilter={resetFilter}
+            region={countries
+              .reduce((region, country) => {
+                if (region.indexOf(country.region) === -1) {
+                  region.push(country.region);
+                }
+                return region;
+              }, [])
+              .filter((item) => item)}
+          />
         </div>
-        <Main countries={countries} />
+        <Main countries={countries} filter={filter} />
       </div>
     </ThemeProvider>
   );

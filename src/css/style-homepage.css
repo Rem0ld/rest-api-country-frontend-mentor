@@ -44,26 +44,29 @@ input {
 }
 
 .select {
-  width: auto;
+  width: 145px;
   height: 40px;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-  padding: 1em;
   border: none;
   border-radius: 5px;
   cursor: pointer;
 }
-.select > span {
-  margin-right: 1em;
+.select > div:first-of-type {
+  margin-left: 1em;
 }
-.select > svg {
+.select > div {
+  display: grid;
+}
+.select > div > svg {
   width: 24px;
   height: 24px;
+  margin-right: 0.5em;
 }
 
 .dropdown {
-  width: 157px;
+  width: 145px;
   display: flex;
   flex-direction: column;
   position: absolute;
@@ -71,9 +74,12 @@ input {
   border-radius: 5px;
   line-height: 30px;
 }
-.dropdown > span {
-  padding-left: 1em;
+.dropdown > div {
+  padding: 0 1em;
   cursor: pointer;
+}
+.dropdown > div:hover {
+  background-color: var(--dark-gray);
 }
 
 .main-title {

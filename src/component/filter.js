@@ -1,57 +1,45 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 import { BsArrowDownShort } from "react-icons/bs";
+import { IoIosClose } from "react-icons/io";
 
 function Filter(props) {
+  // const [region, setRegion] = useState([]);
+
+  // useEffect(() => {
+  //   setRegion(props.region);
+  // }, []);
+
   const handleClickFilter = () => {
     document.getElementById("dropdown").classList.toggle("disabled");
   };
   return (
     <div>
       <div className="select elements" onClick={handleClickFilter}>
+        {props.filter ? <div>{props.filter}</div> : <div>Filter by region</div>}
         {props.filter ? (
-          <span>{props.filter}</span>
+          <div>
+            <IoIosClose onClick={props.resetFilter} />
+          </div>
         ) : (
-          <span>Filter by region</span>
+          <div>
+            <BsArrowDownShort />
+          </div>
         )}
-        <BsArrowDownShort />
       </div>
       <div id="dropdown" className="disabled dropdown elements">
-        <span
-          onClick={(e) => {
-            props.handleClickChoice(e);
-          }}
-        >
-          Africa
-        </span>
-        <span
-          onClick={(e) => {
-            props.handleClickChoice(e);
-          }}
-        >
-          Americas
-        </span>
-        <span
-          onClick={(e) => {
-            props.handleClickChoice(e);
-          }}
-        >
-          Asia
-        </span>
-        <span
-          onClick={(e) => {
-            props.handleClickChoice(e);
-          }}
-        >
-          Europe
-        </span>
-        <span
-          onClick={(e) => {
-            props.handleClickChoice(e);
-          }}
-        >
-          Oceania
-        </span>
+        {props.region.map((el) => {
+          return (
+            <div
+              key={el}
+              onClick={(e) => {
+                props.handleClickChoice(e);
+              }}
+            >
+              {el}
+            </div>
+          );
+        })}
       </div>
     </div>
   );
