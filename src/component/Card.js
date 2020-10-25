@@ -4,7 +4,7 @@ const Card = (props) => {
   return (
     <div className="card elements">
       <div className="flag">
-        <img src={props.flag} alt={`flag of ${props.name}`} />
+        <img src={props.flag} alt={props.name} loading="lazy" />
       </div>
       <div className="content">
         <h2>{props.name}</h2>

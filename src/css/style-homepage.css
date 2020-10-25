@@ -105,11 +105,16 @@ input {
 .card {
   border-radius: 5px;
 }
-.card > .flag > img {
+.card > .flag {
   width: 260px;
   height: 172.8px;
+}
+.card > .flag > img {
   border-top-left-radius: 3px;
   border-top-right-radius: 3px;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 .card:hover {
   box-shadow: 3px 1px 14px 2px var(--very-dark-blue-light);

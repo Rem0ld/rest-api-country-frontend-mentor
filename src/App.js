@@ -19,40 +19,63 @@ import { BsArrowLeft } from "react-icons/bs";
 
 function App() {
   const [theme, setTheme] = useState("dark");
-  const [countries, setCountries] = useState([]);
-  const [input, setInput] = useState("");
-  const [filter, setFilter] = useState("");
-
-  useEffect(() => {
-    let mounted = true;
-    fetchAllCountries().then((data) => {
-      if (mounted) {
-        setCountries(data);
-      }
-    });
-    return () => (mounted = false);
-  }, []);
 
   const toggleTheme = () => {
     theme === "dark" ? setTheme("light") : setTheme("dark");
   };
 
+  const [countries, setCountries] = useState([]);
+
+  useEffect(() => {
+    let mounted = true;
+    let storedCountries = sessionStorage.getItem("countries");
+
+    if (countries.length > 0) {
+      return;
+    }
+    if (storedCountries) {
+      setCountries(JSON.parse(storedCountries));
+    } else {
+      fetchAllCountries().then((data) => {
+        if (mounted) {
+          setCountries(data);
+          sessionStorage.setItem("countries", JSON.stringify(data));
+        }
+      });
+    }
+    return () => (mounted = false);
+  }, [countries]);
+
+  const [input, setInput] = useState("");
+
   const handleInput = (e) => {
     setInput(e.target.value);
-    setCountries(
-      countries.filter((el) => {
-        return el.name.toLowerCase().startsWith(input);
-      })
-    );
   };
-  // useEffect(() => {
 
-  // }, [input]);
+  // useEffect(() => {
+  //   setCountries(
+  //     countries.filter((el) => {
+  //       return el.name.toLowerCase().startsWith(input);
+  //     })
+  //   );
+  //   console.log(countries);
+  // }, [countries, input]);
+
+  const [filter, setFilter] = useState("");
 
   const handleClickChoice = (e) => {
     setFilter(e.target.innerHTML);
     document.getElementById("dropdown").classList.toggle("disabled");
   };
+
+  useEffect(() => {
+    console.log(filter);
+    setCountries(
+      [...countries].filter((el) => {
+        return el.region === filter;
+      })
+    );
+  }, [filter]);
 
   return (
     <ThemeProvider theme={theme === "light" ? lightTheme : darkTheme}>
@@ -61,7 +84,7 @@ function App() {
         <Header theme={theme} toggle={toggleTheme} />
         <div className="container-filters">
           <SearchBar value={input} handleInput={handleInput} />
-          <Filter handleClickChoice={handleClickChoice} />
+          <Filter filter={filter} handleClickChoice={handleClickChoice} />
         </div>
         <Main countries={countries} />
       </div>

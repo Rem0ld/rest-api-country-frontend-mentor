@@ -9,7 +9,11 @@ function Filter(props) {
   return (
     <div>
       <div className="select elements" onClick={handleClickFilter}>
-        <span>Filter by region</span>
+        {props.filter ? (
+          <span>{props.filter}</span>
+        ) : (
+          <span>Filter by region</span>
+        )}
         <BsArrowDownShort />
       </div>
       <div id="dropdown" className="disabled dropdown elements">
@@ -25,7 +29,7 @@ function Filter(props) {
             props.handleClickChoice(e);
           }}
         >
-          America
+          Americas
         </span>
         <span
           onClick={(e) => {

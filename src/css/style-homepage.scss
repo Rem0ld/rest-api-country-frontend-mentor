@@ -119,11 +119,15 @@ input {
   border-radius: 5px;
 
   &>.flag {
+    width: 260px;
+    height: 172.8px;
+
     &>img {
-      width: 260px;
-      height: 172.8px;
       border-top-left-radius: 3px;
       border-top-right-radius: 3px;
+      width: 100%;
+      height: 100%;
+      object-fit: cover; // will make the image fit the container youhou!
     }
   }
 
