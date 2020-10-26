@@ -58,15 +58,6 @@ function App() {
     setInput(e.target.value);
   };
 
-  // useEffect(() => {
-  //   setCountries(
-  //     countries.filter((el) => {
-  //       return el.name.toLowerCase().startsWith(input);
-  //     })
-  //   );
-  //   console.log(countries);
-  // }, [countries, input]);
-
   const [filter, setFilter] = useState("");
 
   const handleClickChoice = (e) => {
@@ -99,7 +90,7 @@ function App() {
               .filter((item) => item)}
           />
         </div>
-        <Main countries={countries} filter={filter} />
+        <Main countries={countries} filter={filter} input={input} />
       </div>
     </ThemeProvider>
   );

@@ -26,6 +26,18 @@ function Main(props) {
     );
   }, [props.filter]);
 
+  useEffect(() => {
+    if (!props.input) {
+      setCountries(props.countries);
+      return;
+    }
+    setCountries(
+      props.countries.filter((el) => {
+        return el.name.toLowerCase().startsWith(props.input.toLowerCase());
+      })
+    );
+  }, [props.input]);
+
   return (
     <div className="container-main">
       {countries.map((country) => {
