@@ -1,8 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 
 const Card = (props) => {
   return (
-    <div className="card elements">
+    <div
+      id={props.id}
+      className="card elements"
+      onClick={(e) => {
+        props.handleClick(e);
+      }}
+    >
       <div className="flag">
         <img src={props.flag} alt={props.name} loading="lazy" />
       </div>

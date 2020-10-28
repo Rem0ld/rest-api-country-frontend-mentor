@@ -107,6 +107,15 @@ input {
   margin: auto;
   justify-items: center;
 }
+.container-detail > div:first-of-type {
+  height: 100px;
+  width: 88%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin: auto;
+  margin-top: 2em;
+}
 
 .card {
   border-radius: 5px;
@@ -153,6 +162,56 @@ input {
   padding: 0 1em;
   border-top-left-radius: 5px;
   border-bottom-left-radius: 5px;
+}
+
+.btn-back {
+  display: flex;
+  align-items: center;
+  padding: 0.5em 2.5em;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.btn-back > svg {
+  margin-right: 0.5em;
+}
+.btn-back:hover {
+  box-shadow: 3px 1px 14px 2px var(--very-dark-blue-light);
+}
+
+.detail-main {
+  width: 100%;
+  display: flex;
+  margin-top: 4em;
+  justify-content: left;
+}
+.detail-content {
+  margin-left: 5em;
+}
+.detail-content > h2 {
+  font-size: 1.2em;
+}
+.detail-lists {
+  display: flex;
+}
+.detail-lists > ul {
+  padding: 0;
+  list-style-type: none;
+  line-height: 25px;
+}
+.detail-lists > ul:last-of-type {
+  margin-left: 5em;
+}
+.detail-border {
+  margin-top: 3em;
+}
+
+.flag-detail {
+  width: 30%;
+  height: 100%;
+}
+.flag-detail > img {
+  width: 100%;
+  height: auto;
 }
 
 .disabled {

@@ -24,7 +24,7 @@ function Main(props) {
         return el.region === props.filter;
       })
     );
-  }, [props.filter]);
+  }, [props.filter]); // eslint-disable-line
 
   useEffect(() => {
     if (!props.input) {
@@ -36,19 +36,21 @@ function Main(props) {
         return el.name.toLowerCase().startsWith(props.input.toLowerCase());
       })
     );
-  }, [props.input]);
+  }, [props.input]); // eslint-disable-line
 
   return (
     <div className="container-main">
       {countries.map((country) => {
         return (
           <Card
+            handleClick={props.handleClick}
             key={country.numericCode}
             name={country.name}
             flag={country.flag}
             pop={country.population}
             reg={country.region}
             cap={country.capital}
+            id={country.alpha3Code}
           />
         );
       })}

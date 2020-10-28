@@ -1,21 +1,19 @@
 import React, { useState, useEffect } from "react";
 
 /* SERVICES */
-import { fetchAllCountries } from "./services/fetchData";
+import { fetchAllCountries, fetchOneCountry } from "./services/fetchData";
 
 /* COMPONENTS */
 import Header from "./component/Header";
 import SearchBar from "./component/SearchBar";
 import Filter from "./component/Filter";
 import Main from "./component/Main";
+import Detail from "./component/Detail";
 
 /* THEME */
 import { ThemeProvider } from "styled-components";
 import { lightTheme, darkTheme } from "./theme";
 import { GlobalStyles } from "./global";
-
-/* ICONS */
-import { BsArrowLeft } from "react-icons/bs";
 
 function App() {
   const [theme, setTheme] = useState("dark");
@@ -69,6 +67,33 @@ function App() {
     setFilter("");
   };
 
+  const handleClickOnACountry = (e) => {
+    let alpha3Code = e.currentTarget.id;
+    fetchOneCountry(alpha3Code)
+      .then((data) => {
+        setACountry(data);
+      })
+      .then(() => {
+        toggleAppElements();
+      });
+  };
+
+  const toggleAppElements = () => {
+    setToggleDetail(() => {
+      return !toggleDetail;
+    });
+    const main = document.getElementsByClassName("container-main")[0];
+    const filter = document.getElementsByClassName("container-filters")[0];
+    const detail = document.getElementsByClassName("container-detail")[0];
+
+    main.classList.toggle("disabled");
+    filter.classList.toggle("disabled");
+    // detail.classList.toggle("disabled");
+  };
+
+  const [country, setACountry] = useState("");
+  const [toggleDetail, setToggleDetail] = useState(false);
+
   return (
     <ThemeProvider theme={theme === "light" ? lightTheme : darkTheme}>
       <div className="App">
@@ -90,7 +115,25 @@ function App() {
               .filter((item) => item)}
           />
         </div>
-        <Main countries={countries} filter={filter} input={input} />
+        <Main
+          countries={countries}
+          filter={filter}
+          input={input}
+          handleClick={handleClickOnACountry}
+        />
+        {toggleDetail ? (
+          <Detail
+            country={country}
+            cur={() => {
+              country.currencies.map((el) => {
+                return el;
+              });
+            }}
+            handleClickBack={toggleAppElements}
+          />
+        ) : (
+          ""
+        )}
       </div>
     </ThemeProvider>
   );

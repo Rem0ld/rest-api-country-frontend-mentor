@@ -9,7 +9,7 @@ function Filter(props) {
   };
 
   return (
-    <div>
+    <div className="filter">
       <div className="select elements" onClick={handleClickFilter}>
         {props.filter ? <div>{props.filter}</div> : <div>Filter by region</div>}
         {props.filter ? (
