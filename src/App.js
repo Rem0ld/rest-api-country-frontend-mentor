@@ -74,7 +74,9 @@ function App() {
         setACountry(data);
       })
       .then(() => {
-        toggleAppElements();
+        if (!toggleDetail) {
+          toggleAppElements();
+        }
       });
   };
 
@@ -82,13 +84,12 @@ function App() {
     setToggleDetail(() => {
       return !toggleDetail;
     });
-    const main = document.getElementsByClassName("container-main")[0];
-    const filter = document.getElementsByClassName("container-filters")[0];
-    const detail = document.getElementsByClassName("container-detail")[0];
+  };
 
-    main.classList.toggle("disabled");
-    filter.classList.toggle("disabled");
-    // detail.classList.toggle("disabled");
+  const handleClickBack = () => {
+    if (toggleDetail) {
+      return setToggleDetail(!toggleDetail);
+    }
   };
 
   const [country, setACountry] = useState("");
@@ -99,37 +100,46 @@ function App() {
       <div className="App">
         <GlobalStyles />
         <Header theme={theme} toggle={toggleTheme} />
-        <div className="container-filters">
-          <SearchBar value={input} handleInput={handleInput} />
-          <Filter
+        {toggleDetail ? (
+          ""
+        ) : (
+          <div className="container-filters">
+            <SearchBar value={input} handleInput={handleInput} />
+            <Filter
+              filter={filter}
+              handleClickChoice={handleClickChoice}
+              resetFilter={resetFilter}
+              region={countries
+                .reduce((region, country) => {
+                  if (region.indexOf(country.region) === -1) {
+                    region.push(country.region);
+                  }
+                  return region;
+                }, [])
+                .filter((item) => item)}
+            />
+          </div>
+        )}
+        {toggleDetail ? (
+          ""
+        ) : (
+          <Main
+            countries={countries}
             filter={filter}
-            handleClickChoice={handleClickChoice}
-            resetFilter={resetFilter}
-            region={countries
-              .reduce((region, country) => {
-                if (region.indexOf(country.region) === -1) {
-                  region.push(country.region);
-                }
-                return region;
-              }, [])
-              .filter((item) => item)}
+            input={input}
+            handleClick={handleClickOnACountry}
           />
-        </div>
-        <Main
-          countries={countries}
-          filter={filter}
-          input={input}
-          handleClick={handleClickOnACountry}
-        />
+        )}
         {toggleDetail ? (
           <Detail
+            handleClickBack={handleClickBack}
             country={country}
-            cur={() => {
-              country.currencies.map((el) => {
-                return el;
-              });
-            }}
-            handleClickBack={toggleAppElements}
+            borders={countries.reduce((acc, el) => {
+              if (country.borders.indexOf(el.alpha3Code) > -1) {
+                acc.push(el.name);
+              }
+              return acc;
+            }, [])}
           />
         ) : (
           ""

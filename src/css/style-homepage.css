@@ -164,18 +164,24 @@ input {
   border-bottom-left-radius: 5px;
 }
 
+.btn {
+  border-radius: 5px;
+  cursor: pointer;
+}
+.btn:hover {
+  box-shadow: 3px 1px 14px 2px var(--very-dark-blue-light);
+}
 .btn-back {
   display: flex;
   align-items: center;
   padding: 0.5em 2.5em;
-  border-radius: 5px;
-  cursor: pointer;
 }
 .btn-back > svg {
   margin-right: 0.5em;
 }
-.btn-back:hover {
-  box-shadow: 3px 1px 14px 2px var(--very-dark-blue-light);
+.btn-borders {
+  margin: 0.5em 1em 0.5em 0.5em;
+  padding: 0.5em 1em;
 }
 
 .detail-main {
@@ -201,8 +207,15 @@ input {
 .detail-lists > ul:last-of-type {
   margin-left: 5em;
 }
-.detail-border {
+.detail-borders {
+  display: flex;
+  align-items: center;
   margin-top: 3em;
+}
+.detail-borders > div {
+  display: flex;
+  flex-wrap: wrap;
+  flex-flow: wrap;
 }
 
 .flag-detail {

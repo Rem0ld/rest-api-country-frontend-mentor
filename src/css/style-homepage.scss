@@ -188,19 +188,27 @@ input {
   }
 }
 
-.btn-back {
-  display: flex;
-  align-items: center;
-  padding: .5em 2.5em;
+.btn {
   border-radius: 5px;
   cursor: pointer;
 
-  &>svg {
-    margin-right: .5em;
-  }
-
   &:hover {
     box-shadow: 3px 1px 14px 2px var(--very-dark-blue-light);
+  }
+
+  &-back {
+    display: flex;
+    align-items: center;
+    padding: .5em 2.5em;
+
+    &>svg {
+      margin-right: .5em;
+    }
+  }
+
+  &-borders {
+    margin: .5em 1em .5em .5em;
+    padding: .5em 1em;
   }
 }
 
@@ -234,8 +242,16 @@ input {
     }
   }
 
-  &-border {
+  &-borders {
+    display: flex;
+    align-items: center;
     margin-top: 3em;
+
+    &>div {
+      display: flex;
+      flex-wrap: wrap;
+      flex-flow: wrap;
+    }
   }
 }
 

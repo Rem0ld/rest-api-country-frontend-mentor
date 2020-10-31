@@ -1,64 +1,105 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { fetchOneCountry } from "../services/fetchData";
 
-// eslint-disable-next-line
+/* ICONS */
 import { BsArrowLeft } from "react-icons/bs";
 
 const Detail = (props) => {
-  // const cur = Object.entries(props.country.currencies).map((el) => {
-  //   console.log(props.country.currencies[el]);
-  //   return props.country.currencies[el];
-  // });
-  // const lang = props.country.languages.join(", ");
-  console.log(props.cur);
+  const [newCountry, setNewCountry] = useState("");
+  const [country, setCountry] = useState({});
+
+  const handleClick = (e) => {
+    console.log(e.currentTarget.id);
+    fetchOneCountry(e.currentTarget.id).then((data) => setNewCountry(data));
+  };
+
+  useEffect(() => {
+    setCountry(newCountry);
+  }, [newCountry]);
+
+  useEffect(() => {
+    setCountry(props.country);
+  }, [props.country]);
+
+  const cur = props.country.currencies.map((el, i, arr) => {
+    if (i === arr.length - 1) {
+      return <span key={el.name}>{el.name}</span>;
+    } else {
+      return <span key={el.name}>{el.name}, </span>;
+    }
+  });
+
+  const lang = props.country.languages.map((el, i, arr) => {
+    if (i === arr.length - 1) {
+      return <span key={el.name}>{el.name}</span>;
+    } else {
+      return <span key={el.name}>{el.name}, </span>;
+    }
+  });
+
+  const borders = props.borders.map((el) => {
+    return (
+      <div
+        id={el}
+        key={el}
+        className="btn btn-borders elements"
+        onClick={(e) => {
+          handleClick(e);
+        }}
+      >
+        {el}
+      </div>
+    );
+  });
+
   return (
     <div className="container-detail">
-      {props.country ? (
+      {country ? (
         <div>
           <div>
-            <div className="btn-back elements" onClick={props.handleClickBack}>
+            <div
+              className="btn btn-back elements"
+              onClick={props.handleClickBack}
+            >
               <BsArrowLeft />
               Back
             </div>
           </div>
           <div className="detail-main">
             <div className="flag flag-detail">
-              <img src={props.country.flag} alt={props.country.name} />
+              <img src={country.flag} alt={country.name} />
             </div>
             <div className="detail-content">
-              <h2>{props.country.name}</h2>
+              <h2>{country.name}</h2>
               <div className="detail-lists">
                 <ul>
                   <li>
-                    Native Name: <span>{props.country.nativeName}</span>
+                    Native Name: <span>{country.nativeName}</span>
                   </li>
                   <li>
-                    Population: <span>{props.country.population}</span>
+                    Population: <span>{country.population}</span>
                   </li>
                   <li>
-                    Region: <span>{props.country.region}</span>
+                    Region: <span>{country.region}</span>
                   </li>
                   <li>
-                    Sub Region <span>{props.country.subregion}</span>
+                    Sub Region <span>{country.subregion}</span>
                   </li>
                   <li>
-                    Capital: <span>{props.country.capital}</span>
+                    Capital: <span>{country.capital}</span>
                   </li>
                 </ul>
                 <ul>
                   <li>
-                    Top Level Domain:{" "}
-                    <span>{props.country.topLevelDomain}</span>
+                    Top Level Domain: <span>{country.topLevelDomain}</span>
                   </li>
-                  <li>
-                    Currencies: <span>{}</span>
-                  </li>
-                  <li>
-                    Languages: <span>{}</span>
-                  </li>
+                  <li>Currencies: {cur}</li>
+                  <li>Languages: {lang}</li>
                 </ul>
               </div>
               <div className="detail-borders">
-                <span>Border countries:</span>
+                <span>Border countries: </span>
+                <div>{borders}</div>
               </div>
             </div>
           </div>
