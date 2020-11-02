@@ -58,17 +58,21 @@ function App() {
 
   const [filter, setFilter] = useState("");
 
+  const resetFilter = () => {
+    setFilter("");
+  };
   const handleClickChoice = (e) => {
     setFilter(e.target.innerHTML);
     document.getElementById("dropdown").classList.toggle("disabled");
   };
 
-  const resetFilter = () => {
-    setFilter("");
-  };
+  const [country, setACountry] = useState("");
 
   const handleClickOnACountry = (e) => {
     let alpha3Code = e.currentTarget.id;
+    console.log(alpha3Code);
+    setToggleDetail(false);
+
     fetchOneCountry(alpha3Code)
       .then((data) => {
         setACountry(data);
@@ -79,6 +83,23 @@ function App() {
         }
       });
   };
+
+  const [borders, setBorders] = useState([]);
+
+  useEffect(() => {
+    console.log(country);
+    if (country !== undefined) {
+      let temp = countries.reduce((acc, el) => {
+        if (country.borders.indexOf(el.alpha3Code) > -1) {
+          acc.push(el.name);
+        }
+        return acc;
+      }, []);
+      setBorders(temp);
+    }
+  }, [country]);
+
+  const [toggleDetail, setToggleDetail] = useState(false);
 
   const toggleAppElements = () => {
     setToggleDetail(() => {
@@ -91,9 +112,6 @@ function App() {
       return setToggleDetail(!toggleDetail);
     }
   };
-
-  const [country, setACountry] = useState("");
-  const [toggleDetail, setToggleDetail] = useState(false);
 
   return (
     <ThemeProvider theme={theme === "light" ? lightTheme : darkTheme}>
@@ -133,13 +151,9 @@ function App() {
         {toggleDetail ? (
           <Detail
             handleClickBack={handleClickBack}
+            handleClickACountry={handleClickOnACountry}
             country={country}
-            borders={countries.reduce((acc, el) => {
-              if (country.borders.indexOf(el.alpha3Code) > -1) {
-                acc.push(el.name);
-              }
-              return acc;
-            }, [])}
+            borders={borders}
           />
         ) : (
           ""

@@ -119,6 +119,7 @@ input {
 
 .card {
   border-radius: 5px;
+  cursor: pointer;
 }
 .card > .flag {
   width: 260px;

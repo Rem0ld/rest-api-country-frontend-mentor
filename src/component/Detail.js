@@ -5,17 +5,7 @@ import { fetchOneCountry } from "../services/fetchData";
 import { BsArrowLeft } from "react-icons/bs";
 
 const Detail = (props) => {
-  const [newCountry, setNewCountry] = useState("");
   const [country, setCountry] = useState({});
-
-  const handleClick = (e) => {
-    console.log(e.currentTarget.id);
-    fetchOneCountry(e.currentTarget.id).then((data) => setNewCountry(data));
-  };
-
-  useEffect(() => {
-    setCountry(newCountry);
-  }, [newCountry]);
 
   useEffect(() => {
     setCountry(props.country);
@@ -44,7 +34,7 @@ const Detail = (props) => {
         key={el}
         className="btn btn-borders elements"
         onClick={(e) => {
-          handleClick(e);
+          props.handleClickACountry(e);
         }}
       >
         {el}
