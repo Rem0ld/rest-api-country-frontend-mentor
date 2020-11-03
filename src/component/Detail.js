@@ -6,7 +6,8 @@ import { BsArrowLeft } from "react-icons/bs";
 const Detail = (props) => {
   const [countries, setCountries] = useState([]);
   const [country, setCountry] = useState({});
-  console.log(props.countries);
+  const [borders, setBorders] = useState([]);
+  const [currencies, setCurrencies] = useState([]);
 
   useEffect(() => {
     setCountries(props.countries);
@@ -16,36 +17,63 @@ const Detail = (props) => {
     setCountry(props.country);
   }, [props.country]);
 
-  const cur = props.country.currencies.map((el, i, arr) => {
-    if (i === arr.length - 1) {
-      return <span key={el.name}>{el.name}</span>;
-    } else {
-      return <span key={el.name}>{el.name}, </span>;
-    }
-  });
+  useEffect(() => {
+    console.log(typeof country.borders);
+    setBorders(parseBorders(country.borders));
+  }, [country]);
 
-  const lang = props.country.languages.map((el, i, arr) => {
-    if (i === arr.length - 1) {
-      return <span key={el.name}>{el.name}</span>;
-    } else {
-      return <span key={el.name}>{el.name}, </span>;
-    }
-  });
+  const handleClickBorderCountry = (e) => {
+    let nameCountry = e.currentTarget.id;
 
-  const borders = props.borders.map((el) => {
-    return (
-      <div
-        id={el}
-        key={el}
-        className="btn btn-borders elements"
-        onClick={(e) => {
-          props.handleClickACountry(e);
-        }}
-      >
-        {el}
-      </div>
-    );
-  });
+    let newCountry = countries.reduce((acc, current) => {
+      if (nameCountry === current.name) {
+        acc = current;
+      }
+      return acc;
+    }, {});
+    setCountry(newCountry);
+  };
+
+  const parseBorders = (borders) => {
+    let result = countries.reduce((result, current) => {
+      if (borders.indexOf(current.alpha3Code) > -1) {
+        result.push(current.name);
+      }
+      return result;
+    }, []);
+    return result;
+  };
+
+  // const cur = props.country.currencies.map((el, i, arr) => {
+  //   if (i === arr.length - 1) {
+  //     return <span key={el.name}>{el.name}</span>;
+  //   } else {
+  //     return <span key={el.name}>{el.name}, </span>;
+  //   }
+  // });
+
+  // const lang = props.country.languages.map((el, i, arr) => {
+  //   if (i === arr.length - 1) {
+  //     return <span key={el.name}>{el.name}</span>;
+  //   } else {
+  //     return <span key={el.name}>{el.name}, </span>;
+  //   }
+  // });
+
+  // const borders = props.borders.map((el) => {
+  //   return (
+  //     <div
+  //       id={el}
+  //       key={el}
+  //       className="btn btn-borders elements"
+  //       onClick={(e) => {
+  //         props.handleClickACountry(e);
+  //       }}
+  //     >
+  //       {el}
+  //     </div>
+  //   );
+  // });
 
   return (
     <div className="container-detail">
@@ -88,13 +116,37 @@ const Detail = (props) => {
                   <li>
                     Top Level Domain: <span>{country.topLevelDomain}</span>
                   </li>
-                  <li>Currencies: {cur}</li>
-                  <li>Languages: {lang}</li>
+                  <li>
+                    {/* Currencies:{" "}
+                    {currencies.map((el, i, arr) => {
+                      if (i === arr.length - 1) {
+                        return <span key={el.name}>{el.name}</span>;
+                      } else {
+                        return <span key={el.name}>{el.name}, </span>;
+                      }
+                    })} */}
+                  </li>
+                  {/* <li>Languages: {lang}</li> */}
                 </ul>
               </div>
               <div className="detail-borders">
-                <span>Border countries: </span>
-                <div>{borders}</div>
+                <div>Border countries: </div>
+                <div>
+                  {borders.map((el) => {
+                    return (
+                      <div
+                        id={el}
+                        key={el}
+                        className="btn btn-borders elements"
+                        onClick={(e) => {
+                          handleClickBorderCountry(e);
+                        }}
+                      >
+                        {el}
+                      </div>
+                    );
+                  })}
+                </div>
               </div>
             </div>
           </div>
