@@ -245,8 +245,12 @@ input {
 
   &-borders {
     display: flex;
-    align-items: center;
+    align-items: baseline;
     margin-top: 3em;
+
+    &>div:first-of-type {
+      white-space: nowrap;
+    }
 
     &>div {
       display: flex;
@@ -261,8 +265,8 @@ input {
   height: 100%;
 
   &>img {
-    width: 100%;
-    height: auto;
+    width: 380px;
+    height: 253px;
   }
 }
 

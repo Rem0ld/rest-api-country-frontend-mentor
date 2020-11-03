@@ -210,8 +210,11 @@ input {
 }
 .detail-borders {
   display: flex;
-  align-items: center;
+  align-items: baseline;
   margin-top: 3em;
+}
+.detail-borders > div:first-of-type {
+  white-space: nowrap;
 }
 .detail-borders > div {
   display: flex;
@@ -224,8 +227,8 @@ input {
   height: 100%;
 }
 .flag-detail > img {
-  width: 100%;
-  height: auto;
+  width: 380px;
+  height: 253px;
 }
 
 .disabled {

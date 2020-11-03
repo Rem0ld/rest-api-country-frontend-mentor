@@ -6,7 +6,7 @@ import { fetchAllCountries, fetchOneCountry } from "./services/fetchData";
 /* COMPONENTS */
 import Header from "./component/Header";
 import SearchBar from "./component/SearchBar";
-import Filter from "./component/Filter";
+import Filter from "./component/Filter.js";
 import Main from "./component/Main";
 import Detail from "./component/Detail";
 
