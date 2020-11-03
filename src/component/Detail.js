@@ -1,11 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { fetchOneCountry } from "../services/fetchData";
 
 /* ICONS */
 import { BsArrowLeft } from "react-icons/bs";
 
 const Detail = (props) => {
+  const [countries, setCountries] = useState([]);
   const [country, setCountry] = useState({});
+  console.log(props.countries);
+
+  useEffect(() => {
+    setCountries(props.countries);
+  }, [props.countries]);
 
   useEffect(() => {
     setCountry(props.country);
@@ -73,7 +78,7 @@ const Detail = (props) => {
                     Region: <span>{country.region}</span>
                   </li>
                   <li>
-                    Sub Region <span>{country.subregion}</span>
+                    Sub Region: <span>{country.subregion}</span>
                   </li>
                   <li>
                     Capital: <span>{country.capital}</span>
