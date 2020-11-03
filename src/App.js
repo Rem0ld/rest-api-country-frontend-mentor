@@ -70,34 +70,36 @@ function App() {
 
   const handleClickOnACountry = (e) => {
     let alpha3Code = e.currentTarget.id;
-    console.log(alpha3Code);
+
     setToggleDetail(false);
 
     fetchOneCountry(alpha3Code)
       .then((data) => {
         setACountry(data);
+        if (data.length === undefined) {
+          setBorders(parseBorders(data.borders));
+        } else {
+          setBorders(parseBorders(data[0].borders));
+        }
       })
       .then(() => {
         if (!toggleDetail) {
-          toggleAppElements();
+          toggleAppElements(true);
         }
       });
   };
 
   const [borders, setBorders] = useState([]);
 
-  useEffect(() => {
-    console.log(country);
-    if (country !== undefined) {
-      let temp = countries.reduce((acc, el) => {
-        if (country.borders.indexOf(el.alpha3Code) > -1) {
-          acc.push(el.name);
-        }
-        return acc;
-      }, []);
-      setBorders(temp);
-    }
-  }, [country]);
+  const parseBorders = (borders) => {
+    let result = countries.reduce((result, current) => {
+      if (borders.indexOf(current.alpha3Code) > -1) {
+        result.push(current.name);
+      }
+      return result;
+    }, []);
+    return result;
+  };
 
   const [toggleDetail, setToggleDetail] = useState(false);
 
@@ -152,6 +154,7 @@ function App() {
           <Detail
             handleClickBack={handleClickBack}
             handleClickACountry={handleClickOnACountry}
+            countries={countries}
             country={country}
             borders={borders}
           />
