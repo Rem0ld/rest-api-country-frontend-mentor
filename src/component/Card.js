@@ -10,7 +10,7 @@ const Card = (props) => {
       }}
     >
       <div className="flag">
-        <img src={props.flag} alt={props.name} loading="lazy" />
+        <img src={props.flag} alt={props.name} />
       </div>
       <div className="content">
         <h2>{props.name}</h2>

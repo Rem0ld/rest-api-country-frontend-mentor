@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 
+import { parseBorders } from "../services/parseBorder";
+
 /* ICONS */
 import { BsArrowLeft } from "react-icons/bs";
 
@@ -18,9 +20,13 @@ const Detail = (props) => {
   }, [props.country]);
 
   useEffect(() => {
-    console.log(typeof country.borders);
-    setBorders(parseBorders(country.borders));
+    setBorders(parseBorders(country.borders, countries));
+    if (country.currencies) {
+      setCurrencies(country.currencies);
+    }
   }, [country]);
+
+  useEffect(() => {}, [country]);
 
   const handleClickBorderCountry = (e) => {
     let nameCountry = e.currentTarget.id;
@@ -33,47 +39,6 @@ const Detail = (props) => {
     }, {});
     setCountry(newCountry);
   };
-
-  const parseBorders = (borders) => {
-    let result = countries.reduce((result, current) => {
-      if (borders.indexOf(current.alpha3Code) > -1) {
-        result.push(current.name);
-      }
-      return result;
-    }, []);
-    return result;
-  };
-
-  // const cur = props.country.currencies.map((el, i, arr) => {
-  //   if (i === arr.length - 1) {
-  //     return <span key={el.name}>{el.name}</span>;
-  //   } else {
-  //     return <span key={el.name}>{el.name}, </span>;
-  //   }
-  // });
-
-  // const lang = props.country.languages.map((el, i, arr) => {
-  //   if (i === arr.length - 1) {
-  //     return <span key={el.name}>{el.name}</span>;
-  //   } else {
-  //     return <span key={el.name}>{el.name}, </span>;
-  //   }
-  // });
-
-  // const borders = props.borders.map((el) => {
-  //   return (
-  //     <div
-  //       id={el}
-  //       key={el}
-  //       className="btn btn-borders elements"
-  //       onClick={(e) => {
-  //         props.handleClickACountry(e);
-  //       }}
-  //     >
-  //       {el}
-  //     </div>
-  //   );
-  // });
 
   return (
     <div className="container-detail">
@@ -90,7 +55,9 @@ const Detail = (props) => {
           </div>
           <div className="detail-main">
             <div className="flag flag-detail">
-              <img src={country.flag} alt={country.name} />
+              <div>
+                <img src={country.flag} alt={country.name} />
+              </div>
             </div>
             <div className="detail-content">
               <h2>{country.name}</h2>
@@ -117,16 +84,27 @@ const Detail = (props) => {
                     Top Level Domain: <span>{country.topLevelDomain}</span>
                   </li>
                   <li>
-                    {/* Currencies:{" "}
+                    Currencies:{" "}
                     {currencies.map((el, i, arr) => {
                       if (i === arr.length - 1) {
                         return <span key={el.name}>{el.name}</span>;
                       } else {
                         return <span key={el.name}>{el.name}, </span>;
                       }
-                    })} */}
+                    })}
                   </li>
-                  {/* <li>Languages: {lang}</li> */}
+                  <li>
+                    Languages:{" "}
+                    {country.languages
+                      ? country.languages.map((el, i, arr) => {
+                          if (i === arr.length - 1) {
+                            return <span key={el.name}>{el.name}</span>;
+                          } else {
+                            return <span key={el.name}>{el.name}, </span>;
+                          }
+                        })
+                      : ""}
+                  </li>
                 </ul>
               </div>
               <div className="detail-borders">

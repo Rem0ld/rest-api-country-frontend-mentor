@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 
 /* SERVICES */
 import { fetchAllCountries, fetchOneCountry } from "./services/fetchData";
+import { parseBorders } from "./services/parseBorder";
 
 /* COMPONENTS */
 import Header from "./component/Header";
@@ -77,9 +78,9 @@ function App() {
       .then((data) => {
         setACountry(data);
         if (data.length === undefined) {
-          setBorders(parseBorders(data.borders));
+          setBorders(parseBorders(data.borders, countries));
         } else {
-          setBorders(parseBorders(data[0].borders));
+          setBorders(parseBorders(data[0].borders, countries));
         }
       })
       .then(() => {
@@ -90,16 +91,6 @@ function App() {
   };
 
   const [borders, setBorders] = useState([]);
-
-  const parseBorders = (borders) => {
-    let result = countries.reduce((result, current) => {
-      if (borders.indexOf(current.alpha3Code) > -1) {
-        result.push(current.name);
-      }
-      return result;
-    }, []);
-    return result;
-  };
 
   const [toggleDetail, setToggleDetail] = useState(false);
 
