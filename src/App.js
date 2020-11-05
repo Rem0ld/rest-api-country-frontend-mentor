@@ -7,7 +7,7 @@ import { parseBorders } from "./services/parseBorder";
 /* COMPONENTS */
 import Header from "./component/Header";
 import SearchBar from "./component/SearchBar";
-import Filter from "./component/Filter.js";
+import Filter from "./component/Filter";
 import Main from "./component/Main";
 import Detail from "./component/Detail";
 
