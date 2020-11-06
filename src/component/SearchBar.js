@@ -9,6 +9,7 @@ function SearchBar(props) {
         <GiWineGlass />
       </div>
       <input
+        aria-label="Search bar"
         type="text"
         className="elements"
         value={props.value}
